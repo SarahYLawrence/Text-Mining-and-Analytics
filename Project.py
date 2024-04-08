@@ -173,7 +173,7 @@ def main():
         sentence_embedding = create_sentence_embeddings([bsentance])
         normalized_embedding = sentence_to_vector(sentence_embedding)
         BDI_embeddings.append(normalized_embedding)
-    # TODO If you dont want to use all available CPU cores
+    # TODO If you dont want to use CPU cores
     # sentence_embeddings = {}
     # for key, sentence in tqdm(all_files.items(), desc="Embedding sentence tokens"):
     #     embedding = create_sentence_embeddings([sentence], embed)
