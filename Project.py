@@ -71,9 +71,6 @@ def read_trec_file(file_path, documents, desc):
     file_paths = [os.path.join(file_path, doc) for doc in documents]
 
     for file_path in tqdm(file_paths, desc=desc):
-        # TODO remove temp
-        if len(docno_text_dict) == 100:
-            break
         with open(file_path, 'r', encoding='utf-8') as file:
             content = file.read()
 
@@ -88,9 +85,6 @@ def read_trec_file(file_path, documents, desc):
                 text = texts[i].strip()
                 # Add to the dictionary
                 docno_text_dict[docno] = text
-                # TODO remove temp
-                if len(docno_text_dict) == 100:
-                    break
     return docno_text_dict
 
 def compares(key_dict, text_dict):
@@ -180,12 +174,17 @@ def main():
         sentence_embedding = create_sentence_embeddings([bsentance])
         normalized_embedding = sentence_to_vector(sentence_embedding)
         BDI_embeddings.append(normalized_embedding)
-    # Embeding sentances 
+    # TODO If you dont want to use all available CPU cores
+    # sentence_embeddings = {}
+    # for key, sentence in tqdm(all_files.items(), desc="Embedding sentence tokens"):
+    #     embedding = create_sentence_embeddings([sentence], embed)
+    #     normalized_embedding = sentence_to_vector(embedding)
+    #     sentence_embeddings[key] = normalized_embedding
+    
+    # Embeding sentances    - Process sentence embeddings in parallel
     print("Embedding sentances...", end='')
-    # Create a pool of workers
     num_processes = multiprocessing.cpu_count() - 1  # Use all available cores except one
     pool = multiprocessing.Pool(num_processes)
-    # Process sentence embeddings in parallel
     sentence_embedding_pairs = list(all_files.items())  
     sentence_embeddings = dict(pool.imap(process_sentence, sentence_embedding_pairs))
     pool.close()
@@ -214,6 +213,7 @@ def main():
             writer.writerow(result)
     print("Results written to", output_filename)
     print("All Done! \u001b[32m:)\u001b[32m")
+
 
 if __name__ == "__main__":
     main()
