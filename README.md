@@ -15,7 +15,7 @@ Step 3: wait for an email giving you access to the data.
 ## Task 1
 Task 1 is the task of ranking sentences of the provided collection
 according to their relevance to the set of BDI (Beck’s Depression Inventory) depression symptoms. A sentence is considered a BDI symptom when it displays information about the user's state concerning the symptom.
-## Task 2
+
 ## Task 3 - Measuring the Severity of Signs of Eating Disorders
 
 #### Overview:
