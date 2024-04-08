@@ -13,9 +13,31 @@ Step 3: wait for an email giving you access to the data.
 - Email: The email will give you a link, and password. click the link. Type your team name for the user name and use the password is provided. 
 
 ## Task 1
-Task 1 is the task of ranking sentences of the provided collection
-according to their relevance to the set of BDI (Beck’s Depression Inventory) depression symptoms. A sentence is considered a BDI symptom when it displays information about the user's state concerning the symptom.
+### Task Overview
+This Task involves ranking sentences of the TREC files 
+according to their relevance to the set of BDI (Beck’s Depression Inventory) depression symptoms. 
+A sentence is considered a BDI symptom when it displays information about the user's state concerning the symptom.
 
+### Baseline Modle Overview
+This baseline model dose the following:
+Input:
+- Beck's Inventory of Depression (most severe options)
+- User posts
+  
+Preprocessing:
+- Lowercased the text
+- Remove stop words
+- Tokenized using Natural Language Toolkit (NLTK) 
+- Joined the tokens
+
+Model:
+- Universal Sentence Encoder
+
+Similarity:
+- Normalized embeddings
+- calculates the dot product
+  
+Comparing user posts embeddings with severe BDI options embeddings and using np.dot() to find the similarities between them
 ## Task 3 - Measuring the Severity of Signs of Eating Disorders
 
 #### Overview:
