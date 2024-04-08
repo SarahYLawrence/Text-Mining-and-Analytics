@@ -11,7 +11,7 @@ Step 2: If you look under task one there will be a linked text that says "CLEF 2
 -"here": https://erisk.irlab.org/eRisk2024.html
   - once you open this page scroll to the bottom and click "user agreement". Fill out the user agreement form. go back to the "here" page and scroll to the bottom. Send the agreement form to the person is says to. 
 
-Step 3; wait for an email giving you access to the data.
+Step 3: wait for an email giving you access to the data.
 - Email: The email will give you a link, and password. click the link. Type your team name for the user name and use the password provided. 
 
 ## What to install
