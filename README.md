@@ -18,9 +18,11 @@ Preprocessing:
 
 Model:
 - Universal Sentence Encoder
+
 Similarity:
 - Normalized embeddings
 - calculates the dot product
+Comparing user posts embeddings with severe BDI options embeddings and using np.dot() to find the similarities between them
 
 ## How to Get the Data
 Step 1: Go to the Erisk website at https://erisk.irlab.org/  - Note this project used the 2024 data  
