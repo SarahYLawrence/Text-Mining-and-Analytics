@@ -1,5 +1,24 @@
 # Text-Mining-and-Analytics
-## Overview
+## Task Overview
+This Task involves ranking sentences of the TREC files 
+according to their relevance to the set of BDI (Beck’s Depression Inventory) depression symptoms. 
+A sentence is considered a BDI symptom when it displays information about the user's state concerning the symptom.
+
+## Baseline Modle Overview
+This baseline model dose the following:
+Input:
+- Beck's Inventory of Depression (most severe options)
+- User posts
+Preprocessing:
+- Lowercased the text
+- Remove stop words
+- Tokenized using Natural Language Toolkit (NLTK) 
+- Joined the tokens
+Model:
+- Universal Sentence Encoder
+Similarity:
+- Normalized embeddings
+- calculates the dot product
 
 ## How to Get the Data
 Step 1: Go to the Erisk website at https://erisk.irlab.org/  - Note this project used the 2024 data  
@@ -16,7 +35,10 @@ Step 3: wait for an email giving you access to the data.
 
 ## What to install
 - pip install PyPDF2
+- pip install nltk
+- pip install numpy
 - pip install gensim
+- pip install tensorflow
 - pip install tensorflow tensorflow-hub
 
 ## Trouble Shooting
