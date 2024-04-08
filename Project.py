@@ -136,7 +136,6 @@ def sentence_to_vector(word_representations):
     return normalized_vector
 
 def calculate_similarity(embedding1, embedding2):
-    # dot or inner
     similarity = np.dot(embedding1, embedding2)
     return similarity
 
