@@ -17,10 +17,6 @@ import string
 from PyPDF2 import PdfReader
 import multiprocessing
 
-# pip install PyPDF2
-# pip install gensim
-# pip install tensorflow tensorflow-hub
-
 # Load the Universal Sentence Encoder (if dosn't work use: embed = hub.load("https://tfhub.dev/google/universal-sentence-encoder-lite/2"))
 print("Loading embedding modle...", end='')
 embed = hub.load("https://tfhub.dev/google/universal-sentence-encoder/4")
