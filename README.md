@@ -13,6 +13,7 @@ Step 3: wait for an email giving you access to the data.
 - Email: The email will give you a link, and password. click the link. Type your team name for the user name and use the password is provided. 
 
 ## Task 1
+
 ### Task Overview
 This Task involves ranking sentences of the TREC files 
 according to their relevance to the set of BDI (Beck’s Depression Inventory) depression symptoms. 
