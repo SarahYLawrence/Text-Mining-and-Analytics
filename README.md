@@ -9,11 +9,13 @@ This baseline model dose the following:
 Input:
 - Beck's Inventory of Depression (most severe options)
 - User posts
+  
 Preprocessing:
 - Lowercased the text
 - Remove stop words
 - Tokenized using Natural Language Toolkit (NLTK) 
 - Joined the tokens
+
 Model:
 - Universal Sentence Encoder
 Similarity:
