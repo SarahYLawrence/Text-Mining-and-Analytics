@@ -14,12 +14,12 @@ Step 3: wait for an email giving you access to the data.
 
 ## Task 1
 
-### Task Overview
+#### Task Overview
 This Task involves ranking sentences of the TREC files 
 according to their relevance to the set of BDI (Beck’s Depression Inventory) depression symptoms. 
 A sentence is considered a BDI symptom when it displays information about the user's state concerning the symptom.
 
-### Baseline Modle Overview
+#### Baseline Modle Overview
 This baseline model dose the following:
 Input:
 - Beck's Inventory of Depression (most severe options)
