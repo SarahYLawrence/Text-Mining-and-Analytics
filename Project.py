@@ -35,9 +35,8 @@ def tokenize(text):
     filtered_tokens = [word for word in tokens if word not in stop_words]
     return filtered_tokens
 
-def csv_reader(filepath, key_row, data_row):
+def csv_reader(filepath, key_row, data_row,check):
     information_dict = {}
-
     with open(filepath, 'r', encoding='utf-8') as file:
         csv_reader = csv.DictReader(file)
         # Collecting the csv informtion
@@ -45,26 +44,23 @@ def csv_reader(filepath, key_row, data_row):
             if row:  
                 key = row[key_row]  
                 data = row[data_row]
-            if key in information_dict:
-                information_dict[key].append(data)
-            else:
-                information_dict[key] = [data]
+                if check == True:
+                    rel = row["rel"]
+                else:
+                    rel = "1"
+            if (rel == "1"):
+                if key in information_dict:
+                    information_dict[key].append(data)
+                else:
+                    information_dict[key] = [data]
     return information_dict
 
-def read_trec_folder(folder_path, key_dict):
-    matched_documents = []  # List to store matched documents
+def read_trec_folder(folder_path):
     all_documents = []
-    # Getting the file id's
-    csv_file_ids = {"_".join(result.split(
-        "_", 2)[:2]) for location_ids in key_dict.values() for result in location_ids}
-
     # Iterate through files in the folder
     for filename in os.listdir(folder_path):
-        file_id = filename.replace(".trec", "")
         all_documents.append(filename)
-        if file_id in csv_file_ids:
-            matched_documents.append(filename)
-    return matched_documents, all_documents
+    return all_documents
 
 def read_trec_file(file_path, documents, desc):
     docno_text_dict = {}
@@ -136,6 +132,7 @@ def sentence_to_vector(word_representations):
     return normalized_vector
 
 def calculate_similarity(embedding1, embedding2):
+    # dot or inner
     similarity = np.dot(embedding1, embedding2)
     return similarity
 
@@ -145,18 +142,69 @@ def process_sentence(key_sentence_pair):
     normalized_embedding = sentence_to_vector(embedding)
     return key, normalized_embedding
 
+def compare_dicts(dict1, dict2):
+    comparison_results = {}
+    
+    for key in dict1:
+        # Initialize list to store matching values
+        matching_values = []
+        
+        # Compare values of this key from dict1 with dict2
+        for value in dict1[key]:
+            if value in dict2.get(key, []):
+                matching_values.append(value)
+        
+        # Add matching values to comparison_results
+        comparison_results[key] = matching_values
+    return comparison_results
+
+def compare_lengths(dict1, dict2):
+    length_differences = {}
+    dict1_length = {}
+    dict2_length = {}
+    
+    for key in dict1:
+        # Get the lengths of values for this key in dict1 and dict2
+        len_dict1 = len(dict1[key])
+        len_dict2 = len(dict2.get(key, []))
+        
+        # Calculate the difference in lengths
+        difference = len_dict1 - len_dict2
+        
+        # Add difference to length_differences dictionary
+        length_differences[key] = difference
+        dict1_length[key] = len_dict1
+        dict2_length[key] = len_dict2
+    
+    return length_differences, dict1_length, dict2_length
+
+def print_matching_values(dict1, dict2, output_file):
+    result = compare_dicts(dict1, dict2)
+    length_result,key_length,result_length = compare_lengths(dict1, result)
+
+    with open(output_file, mode='w', newline='') as csvfile:
+        fieldnames = ['Symptom_num', 'Relevant Sentences (RS)', 'Found RS','Haven\'t Found RS']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        
+        writer.writeheader()
+        
+        for key in length_result:
+                writer.writerow({
+                    'Symptom_num': key,
+                    'Found RS': result_length[key],
+                    'Haven\'t Found RS': length_result[key],
+                    'Relevant Sentences (RS)': key_length[key]
+                })
+
 def main():
     find_directory = os.path.dirname(os.path.abspath(__file__))
-    file_path1 = os.path.join(find_directory, "TrainingKey.csv")
-    file_path2 = os.path.join(find_directory, "Training_data")
+    file_path = os.path.join(find_directory, "new_data")
 
     # Task 1: Getting data
-    # Getting csv information 
-    key_dict = csv_reader(file_path1, "query", "docid")
     # Getting txt file names (Compare csv ids with file ids)
-    matched_documents, all_documents = read_trec_folder(file_path2, key_dict)
+    all_documents = read_trec_folder(file_path)
     # Storing the text file ids and there sentences
-    all_files = read_trec_file(file_path2, all_documents, "Reading All Files")
+    all_files = read_trec_file(file_path, all_documents, "Reading All Files")
     
     # Task 2: Querie creation
     # BDI collected queries
@@ -173,7 +221,7 @@ def main():
         sentence_embedding = create_sentence_embeddings([bsentance])
         normalized_embedding = sentence_to_vector(sentence_embedding)
         BDI_embeddings.append(normalized_embedding)
-    # TODO If you dont want to use CPU cores
+    # TODO If you dont want to use all available CPU cores
     # sentence_embeddings = {}
     # for key, sentence in tqdm(all_files.items(), desc="Embedding sentence tokens"):
     #     embedding = create_sentence_embeddings([sentence], embed)
@@ -211,8 +259,19 @@ def main():
         for result in results:
             writer.writerow(result)
     print("Results written to", output_filename)
+    
+    # Task 6 Testing
+    # Getting csv information 
+    file_path = os.path.join(find_directory, "g_rels_consenso.csv")
+    key_dict = csv_reader(file_path, "query", "docid",True)
+    file_path = os.path.join(find_directory, "results.csv")
+    result_info = csv_reader(file_path, "symptom_number", "sentence-id",False)
+    
+    print_matching_values(key_dict, result_info, "comparson.csv")
+    print("Testing written to comparson.csv")
+    
     print("All Done! \u001b[32m:)\u001b[32m")
-
+   
 
 if __name__ == "__main__":
     main()
