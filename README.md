@@ -22,6 +22,7 @@ Step 3: wait for an email giving you access to the data.
 ## Trouble Shooting
 Taking a long time: 
 - It does take an hour and a half for the embeddings to complete.
+  
 It's using a lot of CPU: 
 - The multiprocessing that is being performed will take up all available cores except one.
 - Use the code under the (# TODO) and delete (Embeding sentences) code If you do not want to use multiprocessing and want a progress bar.
