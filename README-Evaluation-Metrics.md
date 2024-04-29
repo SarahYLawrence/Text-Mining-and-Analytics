@@ -23,11 +23,11 @@ This repository contains Python scripts for evaluating test results obtained fro
 - `Machine_answer2022.py`, `Machine_answer2023.py`: These files contain the machine-generated answers for the years 2022 and 2023, respectively.
 
 ## Instructions
-1. Update the file paths in `main.py` to point to your human-provided and machine-generated answer data files.
+1. Update the file paths in `Evaluation-Metrics.py` to point to your human-provided and machine-generated answer data files.
 2. Run `main.py` using Python.
 3. The script will output the evaluation results for each year, including MZOE, MAE, RMSE, and MAEmacro.
 
 ## Example Usage
 ```bash
-python main.py
+python Evaluation-Metrics.py
 ```
