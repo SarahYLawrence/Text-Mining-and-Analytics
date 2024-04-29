@@ -17,8 +17,8 @@ This repository contains Python scripts for evaluating test results obtained fro
 4. Run the scripts using Python.
 
 ## Files
-- `evaluate_results.py`: This script contains functions to calculate various error metrics, including Mean Zero-One Error (MZOE), Mean Absolute Error (MAE), Root Mean Square Error (RMSE), and Macroaveraged Mean Absolute Error (MAEmacro).
-- `main.py`: This script demonstrates how to use the functions in `evaluate_results.py` to evaluate test results obtained in different years.
+- `Evaluation-Metrics.py`: This script contains functions to calculate various error metrics, including Mean Zero-One Error (MZOE), Mean Absolute Error (MAE), Root Mean Square Error (RMSE), and Macroaveraged Mean Absolute Error (MAEmacro).
+- `main.py`: This script demonstrates how to use the functions in `Evaluation-Metrics.py` to evaluate test results obtained in different years.
 - `Human_answers2022.py`, `Human_answers2023.py`: These files contain the human-provided answers for the years 2022 and 2023, respectively.
 - `Machine_answer2022.py`, `Machine_answer2023.py`: These files contain the machine-generated answers for the years 2022 and 2023, respectively.
 
@@ -29,5 +29,5 @@ This repository contains Python scripts for evaluating test results obtained fro
 
 ## Example Usage
 ```bash
-python Evaluation-Metrics.py
+python main.py
 ```
